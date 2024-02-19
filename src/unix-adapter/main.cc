@@ -222,7 +222,7 @@ static std::string convertPosixPathToWin(const std::string &path)
     // MAX_PATH, but there's no way to query how large the new path is.
     // Hopefully, this is large enough.
     tmp = new char[MAX_PATH + path.size()];
-    cygwin_conv_to_win32_path(path.c_str(), tmp);
+    cygwin_conv_path(CCP_POSIX_TO_WIN_A | CCP_ABSOLUTE, path.c_str(), tmp, MAX_PATH + path.size());
 #endif
     for (int i = 0; tmp[i] != '\0'; ++i) {
         if (tmp[i] == '/')
